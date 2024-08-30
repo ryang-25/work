@@ -20,17 +20,17 @@ assert e1d == x^3 - 1
 
 def multi_rem(p, ds):
   rem = 0
-  while p != 0
+  while p != 0:
     divisible = False
-      for d in ds:
-        if p.lt()//d.lt():
-          p -= (p.lt()//d.lt())*d
-            divisible = True
-            break
+    for d in ds:
+      if p.lt()//d.lt():
+        p -= (p.lt()//d.lt())*d
+        divisible = True
+        break
     if not divisible:
       rem += p.lt()
       p -= p.lt()
-    return rem
+  return rem
 
 # Exercise 1, Section 2.3
 P.<x,y> = PolynomialRing(QQ, order="deglex")
