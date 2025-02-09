@@ -16,6 +16,7 @@
   subject: "Notes from the book",
   author: "Roland Yang"
 )
+#set heading(numbering: none)
 
 = Introduction
 
@@ -126,3 +127,29 @@ with additional appendices, as appropriate. Each corresponding portion of Append
 `astar`: $.27*5 + .06*3 + .18*4 + .02*3 + .46*1 = 2.77$ CPI
 
 Loads Stores Branches Jumps ALU
+
+= Fundamentals of Quantitative Design and Analysis
+
+== 1.
+
+- Rise of microprocessors resulted in RISC architectures replacing other machines
+- Purpose-built computers replaced by microprocessors
+- 50000x performance boost allowed programmers to trade performance for productivity
+- Dennard scaling: constant power density even as transistor density increased
+  - Ended in 2004
+- High performance uniprocessor projects #sym.arrow multiprocessors and data-level parallelism
+- Moore's law slowed from 1.5 years to 20 years for performance doubling
+
+== 2.
+
+- 2 kinds of application parallelism: _data-level parallelism_
+  (DLP) and _task-level parallelism_ (TLP)
+- Flynn (1996) named 4 types of parallelism
+  - SISD
+  - SIMD
+  - MISD
+  - MIMD
+
+== 3.
+
+
