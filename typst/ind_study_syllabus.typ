@@ -1,4 +1,4 @@
-// Various formatting tweaks!
+// formatting tweaks
 
 #set page(paper: "us-letter", margin: 1in)
 #set text(11pt)
@@ -32,25 +32,42 @@ _Prerequisites:_ Completion of *CSC230* (Data Structures and Algorithms)
 
 == Course Overview
 
-This is an independent study course meeting weekly over videoconference covering topics in low-level computer science, including computer organization, operating system design, and hardware interfacing. Students are expected to have strong theoretical and practical computer science backgrounds, including:
+This is an independent study course meeting weekly over videoconference covering
+topics in low-level computer science, including computer organization, operating
+system design, and hardware interfacing. Students are expected to have strong
+theoretical and practical computer science backgrounds, including:
 
 - Experience with low-level application programming in a language such as C/C++
 - Experience debugging their code with portable debuggers such as gdb or lldb
 - Experience writing assembly language for 64-bit architectures
 - Awareness of data structures, algorithm design, and computational complexity
 
-Among other tasks, students will fully design and implement a modern operating system (OS) from scratch in #link("https://www.rust-lang.org")[Rust], a new systems programming language, making use of its strong memory safety guarantees to write safe, performant code. Students will be expected to follow recent advances in extant operating systems during implementation and provide strong empirical rationale—through benchmarking—for their design decisions. Their OS will target a commodity single-board computer, the Raspberry Pi 4, running on the AArch64 architecture.
+Among other tasks, students will fully design and implement a modern operating
+system (OS) from scratch in #link("https://www.rust-lang.org")[Rust], a new
+systems programming language, making use of its strong memory safety guarantees
+to write safe, performant code. Students will be expected to follow recent
+advances in extant operating systems during implementation and provide strong
+empirical rationale—through benchmarking—for their design decisions. Their OS
+will target a commodity single-board computer, the Raspberry Pi 4, running on
+the AArch64 architecture.
 
-During meetings, students should expect to discuss their readings and progress on current projects with instructors, as appropriate. Through discussion and project-based work, students will leave with a greater understanding in computer organization and other advanced topics in computer science.
+During meetings, students should expect to discuss their readings and progress
+on current projects with instructors, as appropriate. Through discussion and
+project-based work, students will leave with a greater understanding in computer
+organization and other advanced topics in computer science.
 
 == Course Objectives
 
 At the end of the course, students will be able to:
 
-+ Interact and navigate the git version control system and command line utility to version and maintain copies of code.
-+ Effectively write and review codebases and changes, accepting and offering valuable feedback in corporate settings.
-+ Be proficient in low-level programming in the Rust programming language and its ownership and borrowing primitives as a tool for writing memory-safe code.
-+ Utilize linker script to craft binaries suitable for booting on single-board computers.
++ Interact and navigate the git version control system and command line utility
+  to version and maintain copies of code.
++ Effectively write and review codebases and changes, accepting and offering
+  valuable feedback in corporate settings.
++ Be proficient in low-level programming in the Rust programming language and
+  its ownership and borrowing primitives as a tool for writing memory-safe code.
++ Utilize linker script to craft binaries suitable for booting on single-board
+  computers.
 + Create a fully functional, minimal, extensible operating system.
 + Create and present a final presentation summarizing their work.
 
@@ -58,8 +75,10 @@ At the end of the course, students will be able to:
   columns: (1.3cm, auto),
   row-gutter: 0.75em,
   [*Texts:*],
-  [_The Rustonomicon_., found at #link("https://doc.rust-lang.org/nomicon/")[doc.rust-lang.org/nomicon/].],
-  [], [_Arm Architecture Reference Manual for A-profile architecture_, #link("https://developer.arm.com/documentation/ddi0487/latest")[developer.arm.com/documentation/ddi0487/latest].],
+  [_The Rustonomicon_., found at
+  #link("https://doc.rust-lang.org/nomicon/")[doc.rust-lang.org/nomicon/].],
+  [], [_Arm Architecture Reference Manual for A-profile architecture_,
+  #link("https://developer.arm.com/documentation/ddi0487/latest")[developer.arm.com/documentation/ddi0487/latest].],
   [], [Instructors will provide other texts as necessary.]
 )
 
@@ -70,7 +89,6 @@ May be subject to change as the discretion of the instructors.
 
 #table(
   columns: (auto, 1fr),
-
   [Week 1], [ARM Architectural Timers],
   [Week 2], [JTAG Hardware Debugging],
   [Week 3], [Exception Levels (EL)],

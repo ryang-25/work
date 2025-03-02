@@ -1,6 +1,13 @@
 #import "notes.typ": *
 #show: great-theorems-init
 
+#show: notes.with(
+  title: "Computer Architecture",
+  subject: "Notes from the book",
+  author: "Roland Yang"
+)
+#set heading(numbering: none)
+
 #let blockquote(body) = {
   pad(left: 1em,
     block(
@@ -11,21 +18,24 @@
   )
 }
 
-#show: notes.with(
-  title: "Computer Architecture",
-  subject: "Notes from the book",
-  author: "Roland Yang"
-)
-#set heading(numbering: none)
+#let enable_numbering = {
+  set heading(numbering: "1.")
+  show heading.where(level: 3): set heading(numbering: none)
+}
 
 = Introduction
 
-These are a set of notes written for an independent study in Computer Architecture led by Mr. Taylor Belcher at the Governor's School for Science and Mathematics conducted in Spring 2025. We are using _Computer Architecture: A Quantitative Approach (6th Edition)_.
+These are a set of notes written for an independent study in Computer
+Architecture led by Mr. Taylor Belcher at the Governor's School for Science and
+Mathematics conducted in Spring 2025. We are using _Computer Architecture: A
+Quantitative Approach (6th Edition)_.
 
 From the book:
 
 #blockquote[
-  Brackets for each exercise (\<chapter.section>) indicate the text sections of primary relevance for completing the exercise. ... Exercises are rated, to give the reader a sense of the amount of time required to complete an exercise:
+  Brackets for each exercise (\<chapter.section>) indicate the text sections of
+  primary relevance for completing the exercise. ... Exercises are rated, to
+  give the reader a sense of the amount of time required to complete an exercise:
 
   [10] Less than 5 min (to read and understand) \
   [15] 5-15 min for a full answer \
@@ -42,7 +52,6 @@ Our initial plan of progression is as follows:
 Chapter 3 $arrow.r$ Chapters 4-7]
 
 with additional appendices, as appropriate. Each corresponding portion of Appendix M will be read after completing each chapter.
-
 
 = Appendix A
 
@@ -128,20 +137,32 @@ with additional appendices, as appropriate. Each corresponding portion of Append
 
 Loads Stores Branches Jumps ALU
 
+#enable_numbering
 = Fundamentals of Quantitative Design and Analysis
 
-== 1.
-
-- Rise of microprocessors resulted in RISC architectures replacing other machines
-- Purpose-built computers replaced by microprocessors
-- 50000x performance boost allowed programmers to trade performance for productivity
+== Introduction
+- Rise of microprocessors resulted in
+  - RISC architectures replacing others
+  - Purpose-built computers being replaced
+  - 50,000x performance boost traded language performance for productivity
 - Dennard scaling: constant power density even as transistor density increased
   - Ended in 2004
-- High performance uniprocessor projects #sym.arrow multiprocessors and data-level parallelism
-- Moore's law slowed from 1.5 years to 20 years for performance doubling
+- Cannot continue to rely on instruction-level parallelism (ILP)
+- High performance uniprocessors #sym.arrow multiprocessors & data-level
+  parallelism (DLP)
+- _Amdahl's Law_ limits the performance benefit from parallelism as a function
+  of how serial a task is
+- Moore's law slowed from 1.5 years to 20 years for transistor doubling
+- Only way to improve energy-performance-cost are specialized architectures
 
-== 2.
-
+== Classes of Computers
+- Five classes of computers:
+  - IoT/Embedded: price over performance
+  - Personal mobile device (PMD): cost, efficiency, limited by inadequate
+    cooling, _real-time_ media requirements
+  - Desktop: price-performance
+  - Servers: availability, scalability, throughput
+  - Clusers/Warehouse-Scale: price-performance, power, availability
 - 2 kinds of application parallelism: _data-level parallelism_
   (DLP) and _task-level parallelism_ (TLP)
 - Flynn (1996) named 4 types of parallelism
@@ -150,6 +171,82 @@ Loads Stores Branches Jumps ALU
   - MISD
   - MIMD
 
-== 3.
+== Defining Computer Architecture
 
+- "Old" view of computer architecture was simply ISA design
+- "Genuine" architecture: ISA, _microarchitecture_, _hardware specifics (such
+  as clock rate)_
 
+== Trends in Technology
+- To prepare for computer evolution, designers must follow changes in implementation tech
+- Five are crucial to modern: _Integrated circuit logic_, _Semiconductor DRAM_,
+  _Semiconductor Flash_, _Magnetic disk technology_, and _Network technolgy_
+- Bandwith is improving faster than latency
+- IC processes are characterized by _feature size_, the minimum size of
+  transistor in the $x$ or $y$ direction.
+- Shrinkage in the $y$ direction corresponds with reduction in operating voltage
+  to maintain operation and reliability of transistors
+- Transistor count improves quadratically with transistor performance
+  - Density allowed for movement from 4-bit to eventually 64-bit computers,
+    wide SIMD units, and innovations in speculative execution and caching
+- Wire delay scales poorly compared to transistor performance
+
+== Trends in Power and Energy in Integrated Circuits
+- What is the maximum power a processor requires?
+- What is sustained power consumption (TDP)?
+  - _Thermal design power_: neither peak (1.5x) nor average—just enough for
+    cooling
+- Modern processors can manage heat by throttling and shutdown
+- We compare processor efficiency via energy rather than power
+  - Only use power consumption as a constraint of cooling, for example
+- CMOS primary energy compution is switching transistors (dynamic energy)
+  $ "Energy"_"dynamic" prop "Capacitive load" times "Voltage"^2 $
+- Which is the energy of a transition of $0 arrow 1 arrow 0$; one transition
+  is half
+- Power per transistor is then transition energy times frequency
+- Meaning slowing clock rate reduces power, not energy
+- This relationship has meant that voltages have dropped from 5V to 1V in 20
+  years
+- Increase in transistor switching and higher frequency have outpaced decreases
+  in load capacitance and voltage with newer processes, so power consumption has
+  continued to grow
+  - First microprocessors consumed $<1$W, while intel i6-6700K consumes 95W, we
+    are at the limit of air cooling (and have been for a decade)
+- Clock rate increase has slowed accordingly—how do we improve energy
+  efficiency? We have four options:
+  - Disabling clock of inactive cores or units
+  - Dynamic voltage-frequency scaling (DVFS): reducing voltage when frequencies
+    and voltages are unneeded
+  - Designing for the typical case: think S sleep states where DRAM or disk
+    powers off
+  - Overclocking: running at higher clocks until tempuratures cause throttling,
+    _Turbo mode_
+- Though dynamic power is important, static power matters: leakage current flows
+  even when off. $ "Power"_"static" prop "Current"_"static" times "Voltage" $
+- Increasing transistor number increases power, and current leakage increases
+  with transistor density
+  - Resulted in turning off power supply entirely to submodules
+- Use of faster, less-efficient processor to finish tasks and let system sleep
+  faster (_race-to-halt_)
+- Transistor density improvements have caused the creation of _dark silicon_,
+  transistors that cannot be turned on because of thermal constraints
+- Single precision FP add uses 30x the energy of 8-bit integer add
+- Memory accesses (DRAM) use 20,000x more energy than 8-bit add
+- Minimizing energy-per-task is up to domain specific processors
+
+== Trends in Cost
+- Costs go down over time as yields improve (the _learning curve_)
+- Volume decreases time in learning curve and cost
+
+== Dependability
+- ICs were one of the most reliable components
+  - As feature sizes shrink past 16 nm, transient and permanent faults grow more
+    common
+- Mean time to failure (MTTF) is a reliability measure
+  - Reciprocal is _failures in time_ (FIT) in failures per billion hours
+- Interruptions—_mean time to repair_ (MTTR)
+- Mean time between failures (MBTF) is MTTF + MTTR
+$ "Module availability" = "MTTF"/("MTTF" + "MTTR") $
+- Cope with failure with redundancy (time or resources)
+
+== Measuring, Reporting, and Summarizing Performance

@@ -1,4 +1,4 @@
-#import "@preview/great-theorems:0.1.1": *
+#import "@preview/great-theorems:0.1.2": *
 #import "@preview/headcount:0.1.0": *
 
 #let notes(
@@ -19,7 +19,12 @@
      #align(center, counter(page).display("1 / 1", both:true))
     ],
   )
+  set text(size: 12pt)
   set heading(numbering: "1.")
+
+  // Set common enum numbering and add some spacing.
+  set enum(numbering: "a)", indent: 1em)
+  set list(indent: 1em)
 
   // front matter
   align(right,
@@ -38,7 +43,6 @@
 }
 
 #let tcounter = counter("counter")
-#show heading: reset-counter(tcounter, levels: 2)
 #let problem = mathblock(
   blocktitle: "Problem",
   counter: tcounter,
@@ -48,3 +52,19 @@
   prefix: [_Solution._],
   suffix: []
 )
+
+#let lifblock(body) = {
+  set par(hanging-indent: 2.5em)
+  h(0.5em)
+  $==>$
+  h(0.5em)
+  body
+}
+
+#let rifblock(body) = {
+  set par(hanging-indent: 2.5em)
+  h(0.5em)
+  $<==$
+  h(0.5em)
+  body
+}
